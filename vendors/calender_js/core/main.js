@@ -105,7 +105,7 @@ Docs & License: https://fullcalendar.io/
     }
     function listenToHoverBySelector(container, selector, onMouseEnter, onMouseLeave) { var currentMatchedChild; return listenBySelector(container, 'mouseover', selector, function (ev, matchedChild) { if (matchedChild !== currentMatchedChild) { currentMatchedChild = matchedChild; onMouseEnter(ev, matchedChild); var realOnMouseLeave_1 = function (ev) { currentMatchedChild = null; onMouseLeave(ev, matchedChild); matchedChild.removeEventListener('mouseleave', realOnMouseLeave_1); }; matchedChild.addEventListener('mouseleave', realOnMouseLeave_1); } }); }
     var transitionEventNames = ['webkitTransitionEnd', 'otransitionend', 'oTransitionEnd', 'msTransitionEnd', 'transitionend']; function whenTransitionDone(el, callback) { var realCallback = function (ev) { callback(ev); transitionEventNames.forEach(function (eventName) { el.removeEventListener(eventName, realCallback); }); }; transitionEventNames.forEach(function (eventName) { el.addEventListener(eventName, realCallback); }); }
-    var DAY_IDS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']; function addWeeks(m, n) { var a = dateToUtcArray(m); a[2] += n * 7; return arrayToUtcDate(a); }
+    var DAY_IDS = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']; function addWeeks(m, n) { var a = dateToUtcArray(m); a[2] += n * 7; return arrayToUtcDate(a); }
     function addDays(m, n) { var a = dateToUtcArray(m); a[2] += n; return arrayToUtcDate(a); }
     function addMs(m, n) { var a = dateToUtcArray(m); a[6] += n; return arrayToUtcDate(a); }
     function diffWeeks(m0, m1) { return diffDays(m0, m1) / 7; }
@@ -147,7 +147,7 @@ Docs & License: https://fullcalendar.io/
             m.getUTCSeconds() * 1000 +
             m.getUTCMilliseconds();
     }
-    var INTERNAL_UNITS = ['years', 'months', 'days', 'milliseconds']; var PARSE_RE = /^(-?)(?:(\d+)\.)?(\d+):(\d\d)(?::(\d\d)(?:\.(\d\d\d))?)?/; function createDuration(input, unit) {
+    var INTERNAL_UNITS = ['années', 'mois', 'jours', 'milliseconds']; var PARSE_RE = /^(-?)(?:(\d+)\.)?(\d+):(\d\d)(?::(\d\d)(?:\.(\d\d\d))?)?/; function createDuration(input, unit) {
         var _a; if (typeof input === 'string') { return parseString(input); }
         else if (typeof input === 'object' && input) { return normalizeObject(input); }
         else if (typeof input === 'number') { return normalizeObject((_a = {}, _a[unit || 'milliseconds'] = input, _a)); }
@@ -205,14 +205,14 @@ Docs & License: https://fullcalendar.io/
             if (ms % 1000 !== 0) { return { unit: 'millisecond', value: ms }; }
             if (ms % (1000 * 60) !== 0) { return { unit: 'second', value: ms / 1000 }; }
             if (ms % (1000 * 60 * 60) !== 0) { return { unit: 'minute', value: ms / (1000 * 60) }; }
-            if (ms) { return { unit: 'hour', value: ms / (1000 * 60 * 60) }; }
+            if (ms) { return { unit: 'heure', value: ms / (1000 * 60 * 60) }; }
         }
         if (dur.days) {
             if (!dontReturnWeeks && dur.days % 7 === 0) { return { unit: 'week', value: dur.days / 7 }; }
-            return { unit: 'day', value: dur.days };
+            return { unit: 'jour', value: dur.days };
         }
-        if (dur.months) { return { unit: 'month', value: dur.months }; }
-        if (dur.years) { return { unit: 'year', value: dur.years }; }
+        if (dur.months) { return { unit: 'mois', value: dur.months }; }
+        if (dur.years) { return { unit: 'année', value: dur.years }; }
         return { unit: 'millisecond', value: 0 };
     }
     function compensateScroll(rowEl, scrollbarWidths) {
@@ -315,8 +315,8 @@ Docs & License: https://fullcalendar.io/
     }
     function isMultiDayRange(range) { var visibleRange = computeVisibleDayRange(range); return diffDays(visibleRange.start, visibleRange.end) > 1; }
     function diffDates(date0, date1, dateEnv, largeUnit) {
-        if (largeUnit === 'year') { return createDuration(dateEnv.diffWholeYears(date0, date1), 'year'); }
-        else if (largeUnit === 'month') { return createDuration(dateEnv.diffWholeMonths(date0, date1), 'month'); }
+        if (largeUnit === 'année') { return createDuration(dateEnv.diffWholeYears(date0, date1), 'year'); }
+        else if (largeUnit === 'mois') { return createDuration(dateEnv.diffWholeMonths(date0, date1), 'month'); }
         else { return diffDayAndTime(date0, date1); }
     }/*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
