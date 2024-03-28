@@ -1246,13 +1246,13 @@ PERFORMANCE OF THIS SOFTWARE.
             }
             return null;
         }; DateEnv.prototype.greatestWholeUnit = function (m0, m1) {
-            var n = this.diffWholeYears(m0, m1); if (n !== null) { return { unit: 'year', value: n }; }
-            n = this.diffWholeMonths(m0, m1); if (n !== null) { return { unit: 'month', value: n }; }
-            n = diffWholeWeeks(m0, m1); if (n !== null) { return { unit: 'week', value: n }; }
-            n = diffWholeDays(m0, m1); if (n !== null) { return { unit: 'day', value: n }; }
-            n = diffHours(m0, m1); if (isInt(n)) { return { unit: 'hour', value: n }; }
+            var n = this.diffWholeYears(m0, m1); if (n !== null) { return { unit: 'année', value: n }; }
+            n = this.diffWholeMonths(m0, m1); if (n !== null) { return { unit: 'mois', value: n }; }
+            n = diffWholeWeeks(m0, m1); if (n !== null) { return { unit: 'semaine', value: n }; }
+            n = diffWholeDays(m0, m1); if (n !== null) { return { unit: 'jour', value: n }; }
+            n = diffHours(m0, m1); if (isInt(n)) { return { unit: 'heure', value: n }; }
             n = diffMinutes(m0, m1); if (isInt(n)) { return { unit: 'minute', value: n }; }
-            n = diffSeconds(m0, m1); if (isInt(n)) { return { unit: 'second', value: n }; }
+            n = diffSeconds(m0, m1); if (isInt(n)) { return { unit: 'seconde', value: n }; }
             return { unit: 'millisecond', value: m1.valueOf() - m0.valueOf() };
         }; DateEnv.prototype.countDurationsBetween = function (m0, m1, d) {
             var diff; if (d.years) { diff = this.diffWholeYears(m0, m1); if (diff !== null) { return diff / asRoughYears(d); } }
@@ -1260,13 +1260,13 @@ PERFORMANCE OF THIS SOFTWARE.
             if (d.days) { diff = diffWholeDays(m0, m1); if (diff !== null) { return diff / asRoughDays(d); } }
             return (m1.valueOf() - m0.valueOf()) / asRoughMs(d);
         }; DateEnv.prototype.startOf = function (m, unit) {
-            if (unit === 'year') { return this.startOfYear(m); }
-            else if (unit === 'month') { return this.startOfMonth(m); }
-            else if (unit === 'week') { return this.startOfWeek(m); }
-            else if (unit === 'day') { return startOfDay(m); }
-            else if (unit === 'hour') { return startOfHour(m); }
+            if (unit === 'année') { return this.startOfYear(m); }
+            else if (unit === 'mois') { return this.startOfMonth(m); }
+            else if (unit === 'semaine') { return this.startOfWeek(m); }
+            else if (unit === 'jour') { return startOfDay(m); }
+            else if (unit === 'heure') { return startOfHour(m); }
             else if (unit === 'minute') { return startOfMinute(m); }
-            else if (unit === 'second') { return startOfSecond(m); }
+            else if (unit === 'seconde') { return startOfSecond(m); }
         }; DateEnv.prototype.startOfYear = function (m) { return this.calendarSystem.arrayToMarker([this.calendarSystem.getMarkerYear(m)]); }; DateEnv.prototype.startOfMonth = function (m) { return this.calendarSystem.arrayToMarker([this.calendarSystem.getMarkerYear(m), this.calendarSystem.getMarkerMonth(m)]); }; DateEnv.prototype.startOfWeek = function (m) { return this.calendarSystem.arrayToMarker([this.calendarSystem.getMarkerYear(m), this.calendarSystem.getMarkerMonth(m), m.getUTCDate() - ((m.getUTCDay() - this.weekDow + 7) % 7)]); }; DateEnv.prototype.computeWeekNumber = function (marker) {
             if (this.weekNumberFunc) { return this.weekNumberFunc(this.toDate(marker)); }
             else { return weekOfYear(marker, this.weekDow, this.weekDoy); }
